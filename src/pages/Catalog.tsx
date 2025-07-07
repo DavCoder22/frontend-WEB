@@ -26,11 +26,7 @@ const Catalog = () => {
 
   const { data: products = [], isLoading, error } = useQuery(
     ['products', searchTerm, selectedCategory, selectedMaterial],
-    () => catalogService.getProducts({
-      search: searchTerm,
-      category: selectedCategory,
-      material: selectedMaterial
-    })
+    () => catalogService.getProducts()
   )
 
   const handleAddToCart = (product: Product) => {
@@ -87,32 +83,42 @@ const Catalog = () => {
           </div>
 
           {/* Category Filter */}
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="input-field"
-          >
-            <option value="">Todas las categorías</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <label htmlFor="category-select" className="sr-only">Filtrar por categoría</label>
+            <select
+              id="category-select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="input-field"
+              title="Filtrar por categoría"
+            >
+              <option value="">Todas las categorías</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Material Filter */}
-          <select
-            value={selectedMaterial}
-            onChange={(e) => setSelectedMaterial(e.target.value)}
-            className="input-field"
-          >
-            <option value="">Todos los materiales</option>
-            {materials.map((material) => (
-              <option key={material} value={material}>
-                {material}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <label htmlFor="material-select" className="sr-only">Filtrar por material</label>
+            <select
+              id="material-select"
+              value={selectedMaterial}
+              onChange={(e) => setSelectedMaterial(e.target.value)}
+              className="input-field"
+              title="Filtrar por material"
+            >
+              <option value="">Todos los materiales</option>
+              {materials.map((material) => (
+                <option key={material} value={material}>
+                  {material}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Clear Filters */}
           <button

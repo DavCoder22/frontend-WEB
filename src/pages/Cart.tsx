@@ -74,6 +74,8 @@ const Cart = () => {
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     className="p-1 rounded hover:bg-gray-100"
+                    aria-label="Disminuir cantidad"
+                    title="Disminuir cantidad"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
@@ -81,6 +83,8 @@ const Cart = () => {
                   <button
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     className="p-1 rounded hover:bg-gray-100"
+                    aria-label="Aumentar cantidad"
+                    title="Aumentar cantidad"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
@@ -98,6 +102,8 @@ const Cart = () => {
                 <button
                   onClick={() => removeItem(item.id)}
                   className="text-red-600 hover:text-red-700 p-1"
+                  aria-label="Eliminar producto"
+                  title="Eliminar producto"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>

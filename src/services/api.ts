@@ -87,6 +87,11 @@ export const orderService = {
   trackOrder: async (id: string) => Promise.resolve({ data: { id, status: 'en_produccion', tracking: [{ status: 'recibido', date: '2024-06-01' }, { status: 'en_produccion', date: '2024-06-02' }] } }),
 }
 
+// MOCKS PARA PAGOS Y MENSAJERÍA
+// Para producción, reemplace estas funciones por llamadas reales a la API usando la URL base:
+// Ejemplo: api.post(`${API_BASE_URL}/payments`, data)
+// La URL base se configura con VITE_API_BASE_URL en el entorno.
+
 export const paymentService = {
   createPayment: async (data: any) => Promise.resolve({ data: { id: 'p1', ...data } }),
   getPayments: async () => Promise.resolve({ data: [

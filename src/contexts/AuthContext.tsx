@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { authService } from '../services/api'
 
-export type UserRole = 'usuario' | 'impresor'
+export type UserRole = 'usuario' | 'impresor' | 'admin'
 
 interface User {
   id: string
@@ -42,7 +42,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       authService.profile()
         .then(response => {
-          setUser(response.data)
+          const userData = response.data
+          setUser({
+            ...userData,
+            role: userData.email === 'dsmalquin@uce.edu.ec' ? 'admin' : (userData.role as UserRole)
+          })
         })
         .catch(() => {
           localStorage.removeItem('token')
@@ -60,7 +64,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await authService.login({ email, password })
       const { token, user: userData } = response.data
       localStorage.setItem('token', token)
-      setUser(userData)
+      setUser({
+        ...userData,
+        role: userData.email === 'dsmalquin@uce.edu.ec' ? 'admin' : (userData.role as UserRole)
+      })
     } catch (error) {
       throw error
     }
@@ -71,7 +78,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await authService.register({ name, email, password, role })
       const { token, user: userData } = response.data
       localStorage.setItem('token', token)
-      setUser(userData)
+      setUser({
+        ...userData,
+        role: userData.email === 'dsmalquin@uce.edu.ec' ? 'admin' : (userData.role as UserRole)
+      })
     } catch (error) {
       throw error
     }
@@ -94,7 +104,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     register,
     logout,
-    role: user?.role || null,
+    role:
+      user?.email === 'dsmalquin@uce.edu.ec'
+        ? 'admin'
+        : user?.role || null,
   }
 
   return (

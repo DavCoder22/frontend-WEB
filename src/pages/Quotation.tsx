@@ -206,6 +206,9 @@ const Quotation = () => {
                             value={item.quantity}
                             onChange={e => handleItemChange(item.id, 'quantity', Number(e.target.value))}
                             className="input-field w-20 inline-block ml-2"
+                            aria-label="Cantidad"
+                            title="Cantidad"
+                            placeholder="Cantidad"
                           />
                         ) : item.quantity}
                         {' '}| ${item.price.toFixed(2)} each

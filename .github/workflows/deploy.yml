@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -44,4 +46,5 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
         env:
-          TF_VAR_instance_type: t3.micro 
+          TF_VAR_instance_type: t3.micro
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 

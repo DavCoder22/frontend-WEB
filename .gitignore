@@ -3,3 +3,5 @@ main.tf
 *.tfvars
 .terraform/
 .terraform.lock.hcl 
+.env
+.env.production 

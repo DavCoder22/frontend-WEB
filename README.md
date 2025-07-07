@@ -2,22 +2,59 @@
 
 ## Description
 
-This project is a **minimalist and responsive frontend** for a distributed 3D printing quotation, order, and monitoring system. Built as a Single Page Application (SPA) using React, Vite, and Tailwind CSS, it allows you to simulate and visualize all main user and printer flows using mock data for interface and navigation testing.
+This project is a **minimalist and responsive frontend** for a distributed 3D printing quotation, order, and monitoring system. Built as a Single Page Application (SPA) using React, Vite, and Tailwind CSS, it allows you to simulate and visualize all main user, printer, and admin flows using mock data for interface and navigation testing.
+
+---
+
+## Roles and Navigation
+
+### User (Cliente)
+- **Can:**
+  - Register/login as user
+  - Browse product and material catalog
+  - Build a quotation: select material, dimensions, describe the 3D print, get estimated price
+  - Save quotation for later or create an order
+  - Monitor their orders and see status updates (pending, printing, completed, cancelled)
+  - Chat with the assigned printer (ask about status changes, etc.)
+  - Access cart, payments, and profile (change password, logout)
+- **Navigation:**
+  - Dashboard, Catalog, Cart, Quotation, Payment, Messaging, Orders
+
+### Printer (Impresor)
+- **Can:**
+  - Register/login as printer
+  - See a list of assigned orders (with brief description)
+  - Accept or reject orders
+  - Upon accepting, see full order details and their profit percentage
+  - Change order status (printing, cancelled, completed/delivered)
+  - Send predefined status messages to the user
+  - Respond to user questions in chat
+  - Access clients and settings
+- **Navigation:**
+  - Dashboard, Orders, Messaging, Clients, Settings
+
+### Admin (only dsmalquin@uce.edu.ec)
+- **Can:**
+  - Login as admin (only if the email is `dsmalquin@uce.edu.ec`)
+  - See a dashboard with statistics: total orders, users, printers, activity summary
+- **Navigation:**
+  - Dashboard (admin view)
 
 ---
 
 ## What can you see and test?
 
 - **Login, registration, and password recovery** (choose between user or printer account during registration)
+- **Role-based navigation and menus** (user, printer, or admin)
 - **Product and material catalog navigation**
 - **Shopping cart** (add, remove, modify products)
-- **Quotation creation form** (with all required fields for order creation)
+- **Quotation creation form** (with all required fields for order creation: material, dimensions, description, etc.)
 - **Quotation summary and confirmation**
 - **Payment flow** (mock)
-- **Order monitoring** (mock)
-- **Messaging between user and printer** (mock)
-- **Role-based navigation and menus** (user or printer)
+- **Order monitoring** (mock, with status changes and tracking)
+- **Messaging between user and printer** (mock, with predefined and custom messages)
 - **Assigned orders view for printers**
+- **Admin dashboard with statistics**
 - **Responsive design for desktop and mobile**
 
 ---
@@ -81,15 +118,33 @@ server {
 
 ---
 
+## Environment configuration for production
+
+To connect the frontend to the real API (with an elastic IP or DNS), set the environment variable in a `.env.production` file:
+
+```
+VITE_API_BASE_URL=https://your-elastic-ip-or-dns/api
+```
+
+- Rebuild the frontend with `npm run build` after changing the variable.
+- Do not commit `.env` or `.env.production` to version control (already in .gitignore).
+- In development, you can use a local or test API endpoint.
+
+---
+
 ## How to test the flows?
 
-- **Login/Registration:** Use any email and password. Choose the account type (user or printer) during registration.
-- **Navigation:** Use the sidebar menu to access catalog, cart, quotation, payments, messaging, orders (if printer), etc.
-- **Cart:** Add products from the catalog, view the cart empty or with products.
-- **Quotation:** Complete the form with customer data, notes, and review all items before submitting.
-- **Role differentiation:**
-  - **User:** See catalog, cart, quotation, payments, monitoring, messaging.
-  - **Printer:** See assigned orders, messaging, clients, settings.
+- **Login/Registration:** Use any email and password. Choose the account type (user or printer) during registration. To test admin, login with the email `dsmalquin@uce.edu.ec`.
+- **Navigation:** The sidebar menu adapts to the logged-in role (user, printer, or admin).
+- **User:**
+  - Add products from the catalog, view/edit cart
+  - Build a quotation (material, dimensions, description, etc.), save or create order
+  - Monitor order status and chat with printer
+- **Printer:**
+  - See assigned orders, accept/reject, view details and profit
+  - Change order status, send predefined messages, respond to user
+- **Admin:**
+  - See statistics dashboard (only with email `dsmalquin@uce.edu.ec`)
 - **Mock:** All data and flows are simulated, no real backend connection.
 
 ---
